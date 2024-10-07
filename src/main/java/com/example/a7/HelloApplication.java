@@ -19,18 +19,14 @@ import java.util.ArrayList;
 
 public class HelloApplication extends Application {
 
-
     @Override
     public void start(Stage stage) throws IOException {
-        //hello-view
-        //SelectFormController
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("SelectFormController.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
-
 
     public ArrayList<IStmt> getStatements() {
         ArrayList<IStmt> programs = new ArrayList<>();
@@ -60,12 +56,12 @@ public class HelloApplication extends Application {
         //closeRFile(varf);
         IStmt ex4 = new CompStmt(new VarDeclStmt("varf", new StringType()), new CompStmt(
                 new AssignStmt("varf", new ValueExp(new StringIValue("src/test.in"))), new CompStmt(
-                new openRFileStmt(new VarExp("varf")), new CompStmt(
+                new OpenRFileStmt(new VarExp("varf")), new CompStmt(
                 new VarDeclStmt("varc", new IntType()), new CompStmt(
                 new ReadFileStmt(new VarExp("varf"), "varc"), new CompStmt(
                 new PrintStmt(new VarExp("varc")), new CompStmt(
                 new ReadFileStmt(new VarExp("varf"), "varc"), new CompStmt(
-                new PrintStmt(new VarExp("varc")), new closeRFileStmt(new VarExp("varf"))))))))));
+                new PrintStmt(new VarExp("varc")), new CloseRFileStmt(new VarExp("varf"))))))))));
         // Ref int v;
         // new(v,20);
         // Ref Ref int a;
@@ -123,7 +119,7 @@ public class HelloApplication extends Application {
                 new VarDeclStmt("a", new RefType(new IntType())), new CompStmt(
                 new AssignStmt("v", new ValueExp(new IntIValue(10))), new CompStmt(
                 new newStmt("a", new ValueExp(new IntIValue(22))), new CompStmt(
-                new forkStmt(new CompStmt(
+                new ForkStmt(new CompStmt(
                         new wH("a", new ValueExp(new IntIValue(30))), new CompStmt(
                         new AssignStmt("v", new ValueExp(new IntIValue(32))), new CompStmt(
                         new PrintStmt(new VarExp("v")), new PrintStmt(new rH(new VarExp("a"))))))), new CompStmt(
@@ -141,9 +137,8 @@ public class HelloApplication extends Application {
                 new AssignStmt("a", new ValueExp(new IntIValue(1))), new CompStmt(
                 new AssignStmt("b", new ValueExp(new IntIValue(2))), new CompStmt(
                 new AssignStmt("c", new ValueExp(new IntIValue(5))), new CompStmt(
-                new switchStmt(new ArithExp('*',new VarExp("a"),new ValueExp(new IntIValue(10))),new ArithExp('*',new VarExp("b"),new VarExp("c")),new ValueExp(new IntIValue(10)),new CompStmt(new PrintStmt(new VarExp("a")),new PrintStmt(new VarExp("b"))),new CompStmt(new PrintStmt(new ValueExp(new IntIValue(100))),new PrintStmt(new ValueExp(new IntIValue(200)))),new PrintStmt(new ValueExp(new IntIValue(300)))),
+                new SwitchStmt(new ArithExp('*',new VarExp("a"),new ValueExp(new IntIValue(10))),new ArithExp('*',new VarExp("b"),new VarExp("c")),new ValueExp(new IntIValue(10)),new CompStmt(new PrintStmt(new VarExp("a")),new PrintStmt(new VarExp("b"))),new CompStmt(new PrintStmt(new ValueExp(new IntIValue(100))),new PrintStmt(new ValueExp(new IntIValue(200)))),new PrintStmt(new ValueExp(new IntIValue(300)))),
                 new PrintStmt(new ValueExp(new IntIValue(300))))))))));
-
 
         programs.add(ex1);
         programs.add(ex2);
@@ -157,12 +152,9 @@ public class HelloApplication extends Application {
         programs.add(ex10);
         programs.add(ex11);
         return programs;
-
     }
 
     public static void main(String[] args) {
-
-
         launch();
     }
 }

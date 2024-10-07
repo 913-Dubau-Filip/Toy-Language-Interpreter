@@ -45,17 +45,12 @@ public class wH implements IStmt {
 
                         //Third we access the Heap using the address from var_name and that Heap entry is updated
                         //to the result of the expression evaluation
-
                         heap.put(refV.getAddress(), val);
                         symTable.put(var_Name, new RefIValue(refV.getAddress(), refV.getLocationType()));
-
                     }else
                         throw new InvalidTypeException("locationType of the var_name types are not the same");
-
                 } else
                     throw new MyException("the address from the RefValue associated in SymTable is not a key in Heap");
-
-
             } else
                 throw new InvalidTypeException(var_Name + " is not Reference Type");
         } else
@@ -70,14 +65,13 @@ public class wH implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
-        Type typevar = typeEnv.lookup(var_Name);
-        Type typexp = e.typecheck(typeEnv);
-        if (typevar.equals(new RefType(typexp)))
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typeVar = typeEnv.lookup(var_Name);
+        Type typExp = e.typecheck(typeEnv);
+        if (typeVar.equals(new RefType(typExp)))
             return typeEnv;
         else
             throw new MyException("wH stmt: right hand side and left hand side have different types ");
-
     }
 
     @Override

@@ -1,15 +1,13 @@
 package GUI;
 
-public class HeapTableModle {
+public class HeapTableModule {
 
     private String address = null;
     private String value = null;
 
-    public HeapTableModle(String a, String b)
-    {
+    public HeapTableModule(String a, String b) {
         this.address = a;
-        this.value= b;
-
+        this.value = b;
     }
 
     public String getAddress() {

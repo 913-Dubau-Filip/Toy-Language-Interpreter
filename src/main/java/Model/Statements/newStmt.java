@@ -27,7 +27,7 @@ public class newStmt implements IStmt {
             IValue value = (symTable.lookup(var_name));
             if (value.getType() instanceof RefType) {
                 RefType refType = (RefType) value.getType();
-                IValue val = exp.eval(symTable,heap);
+                IValue val = exp.eval(symTable, heap);
                 if (val.getType().equals(refType.getInner())) {
                     int k = heap.nextFreeAdress();
                     heap.add(k, val);
@@ -37,9 +37,8 @@ public class newStmt implements IStmt {
                     throw new MyException("The type of the expression and locationType are not the same");
                 }
             } else
-                throw new MyException( var_name + " is not Reference Type");
-
-        }else
+                throw new MyException(var_name + " is not Reference Type");
+        } else
             throw new MyException("The used variable " + var_name + " was not declared before");
         return null;
     }
@@ -50,10 +49,10 @@ public class newStmt implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
-        Type typevar = typeEnv.lookup(var_name);
-        Type typexp = exp.typecheck(typeEnv);
-        if (typevar.equals(new RefType(typexp)))
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typeVar = typeEnv.lookup(var_name);
+        Type typExp = exp.typecheck(typeEnv);
+        if (typeVar.equals(new RefType(typExp)))
             return typeEnv;
         else
             throw new MyException("NEW stmt: right hand side and left hand side have different types ");

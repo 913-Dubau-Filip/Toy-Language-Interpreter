@@ -22,7 +22,7 @@ public class BoolType implements Type {
 
 
     @Override
-    public String toString(){
+    public String toString() {
         return "bool";
     }
 }

@@ -16,8 +16,7 @@ public class MyHeap<K, V> implements MyIHeap<K, V> {
         index = new AtomicInteger(1);
     }
 
-    public void setContent(Map map)
-    {
+    public void setContent(Map map) {
         this.map = map;
     }
 
@@ -46,7 +45,6 @@ public class MyHeap<K, V> implements MyIHeap<K, V> {
         if (!map.containsKey(key))
             throw new ADTException("Element doesn't exists.");
         map.remove(key);
-
     }
 
     @Override
@@ -89,7 +87,6 @@ public class MyHeap<K, V> implements MyIHeap<K, V> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         boolean first = true;
         for (K s : map.keySet()) {
             if (!first) {
@@ -98,12 +95,8 @@ public class MyHeap<K, V> implements MyIHeap<K, V> {
             if (first) {
                 first = false;
             }
-
             sb.append(s.toString()).append("->").append(map.get(s).toString());
-
         }
-
-
         return sb.toString();
     }
 }

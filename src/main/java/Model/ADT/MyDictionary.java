@@ -4,17 +4,15 @@ import Exception.ADTException;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class MyDictionary<K, V> implements MyIDictionary<K, V> {
 
     private HashMap<K, V> map;
 
-    public MyIDictionary<K,V> deepcopy()
-    {
+    public MyIDictionary<K, V> deepcopy() {
         MyIDictionary<K, V> di = new MyDictionary<>();
-        for(K key : this.map.keySet())
+        for (K key : this.map.keySet())
             di.put(key, map.get(key));
         return di;
     }
@@ -22,10 +20,6 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     @Override
     public Iterator<K> getIterator() {
         return map.keySet().iterator();
-    }
-
-    public MyDictionary(HashMap<K, V> mapp) {
-        map = mapp;
     }
 
     public MyDictionary() {
@@ -44,7 +38,6 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
         if (!map.containsKey(key))
             throw new ADTException("Element doesn't exists.");
         map.remove(key);
-
     }
 
     @Override
@@ -74,8 +67,6 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
         return map;
     }
 
-
-
     @Override
     public boolean isDefined(K id) {
         return map.containsKey(id);
@@ -95,16 +86,11 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
             if (!first) {
                 sb.append("\n");
             }
-            if (first)
-            {
+            if (first) {
                 first = false;
             }
-
             sb.append(s.toString()).append("->").append(map.get(s).toString());
-
         }
-
-
         return sb.toString();
     }
 }

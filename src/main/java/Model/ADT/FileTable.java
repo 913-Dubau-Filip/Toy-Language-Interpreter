@@ -4,17 +4,16 @@ import Exception.ADTException;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-public class FileTable<K, V> implements MyIDictionary<K, V>{
+public class FileTable<K, V> implements MyIDictionary<K, V> {
     private HashMap<K, V> map;
 
     public FileTable() {
         map = new HashMap<>();
     }
 
-    public FileTable(HashMap<K,V> m ) {
+    public FileTable(HashMap<K, V> m) {
         map = m;
     }
 
@@ -30,7 +29,6 @@ public class FileTable<K, V> implements MyIDictionary<K, V>{
         if (!map.containsKey(key))
             throw new ADTException("Element doesn't exists.");
         map.remove(key);
-
     }
 
     @Override
@@ -60,8 +58,6 @@ public class FileTable<K, V> implements MyIDictionary<K, V>{
         return map;
     }
 
-
-
     @Override
     public boolean isDefined(K id) {
         return map.containsKey(id);
@@ -69,12 +65,12 @@ public class FileTable<K, V> implements MyIDictionary<K, V>{
 
     @Override
     public void put(K key, V el) {
-        map.put(key,el);
+        map.put(key, el);
     }
 
     @Override
     public MyIDictionary<K, V> deepcopy() {
-        return new FileTable<K,V>(map);
+        return new FileTable<K, V>(map);
     }
 
     @Override
@@ -85,23 +81,17 @@ public class FileTable<K, V> implements MyIDictionary<K, V>{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         boolean first = true;
         for (K s : map.keySet()) {
             if (!first) {
                 sb.append("\n");
             }
-            if (first)
-            {
+            if (first) {
                 first = false;
             }
 
             sb.append(s.toString()).append("->").append(map.get(s).toString());
-
         }
-
-
         return sb.toString();
     }
-
 }

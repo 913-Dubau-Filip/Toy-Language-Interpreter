@@ -1,11 +1,10 @@
 package com.example.a7;
 
-import Exception.*;
-
 import Controller.Controller;
-import GUI.HeapTableModle;
-import GUI.SymtableModle;
-import GUI.filetableModle;
+import Exception.MyException;
+import GUI.FileTableModule;
+import GUI.HeapTableModule;
+import GUI.SymTableModule;
 import Model.ADT.*;
 import Model.PrgState;
 import Model.Statements.IStmt;
@@ -28,11 +27,13 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MainController implements Initializable {
-
 
     private Stage stage;
     private Scene scene;
@@ -46,7 +47,6 @@ public class MainController implements Initializable {
     @FXML
     private Button runOneStepButton;
 
-
     @FXML
     private Label myLable;
 
@@ -54,42 +54,40 @@ public class MainController implements Initializable {
     private TextField nrProgStates;
 
     @FXML
-    private TableView<HeapTableModle> heapTable;
+    private TableView<HeapTableModule> heapTable;
 
     @FXML
-    private TableColumn<HeapTableModle, String> heapAddressColumn;
+    private TableColumn<HeapTableModule, String> heapAddressColumn;
 
     @FXML
-    private TableColumn<HeapTableModle, String> heapValueColumn;
+    private TableColumn<HeapTableModule, String> heapValueColumn;
 
     @FXML
-    private TableView<SymtableModle> symTable;
-    @FXML
-    private TableColumn<SymtableModle, String> symVarNameColumn;
-    @FXML
-    private TableColumn<SymtableModle, String> symValueColumn;
+    private TableView<SymTableModule> symTable;
 
+    @FXML
+    private TableColumn<SymTableModule, String> symVarNameColumn;
+
+    @FXML
+    private TableColumn<SymTableModule, String> symValueColumn;
 
     @FXML
     private ListView<String> exeStack;
-
 
     @FXML
     private ListView<IValue> outTable;
 
     @FXML
-    private TableView<filetableModle> fileTable;
+    private TableView<FileTableModule> fileTable;
+
     @FXML
-    private TableColumn<filetableModle, Integer> fietableid;
+    private TableColumn<FileTableModule, Integer> fietableid;
+
     @FXML
-    private TableColumn<filetableModle, String> filetablename;
-
-
-
+    private TableColumn<FileTableModule, String> filetablename;
 
     @FXML
     private ListView<Integer> progStateIdentifiers;
-
 
     public MainController(Controller c) {
         this.controller = c;
@@ -100,7 +98,6 @@ public class MainController implements Initializable {
     public void setcontroler(IStmt selectedProg) {
         this.selectedProg = selectedProg;
     }
-
 
     public MainController() {
         //this.controller = c;
@@ -119,9 +116,8 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-
     public void initializefirst() throws MyException {
-        selectedProg.typecheck(new MyDictionary<>());
+        selectedProg.typeCheck(new MyDictionary<>());
         PrgState p = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new MyHeap<>(), selectedProg, 1);
         Repo r = new Repo();
         r.addPrg(p);
@@ -139,16 +135,8 @@ public class MainController implements Initializable {
     @FXML
     TableColumn symTableValue = new TableColumn();
 
-
     private void populateAll() throws MyException {
-
-        this.selectedID=1;
-
-        //PrgState randomPS = null;
-        //while(randomPS == null && selectedID<20) randomPS = controller.getRepo().getPrgList().get(selectedID++);
-        //if (progStateIdentifiers.getSelectionModel().getSelectedItem() != null)
-        //   randomPS = controller.getRepo().getPrgList().get(progStateIdentifiers.getSelectionModel().getSelectedItem());
-
+        this.selectedID = 1;
         populateIdentifiers();
         populateOutput(this.progState);
         populateFileTable(this.progState);
@@ -156,8 +144,6 @@ public class MainController implements Initializable {
         populateSymbolTable(this.progState);
         populateExecutionStack(this.progState);
         populateExeStack(this.progState);
-
-
     }
 
     private void populateIdentifiers() {
@@ -173,10 +159,9 @@ public class MainController implements Initializable {
         while (iterator.hasNext()) {
             Integer item = iterator.next();
             this.heapTable.getItems().add(
-                    new HeapTableModle(item.toString(),
+                    new HeapTableModule(item.toString(),
                             heap.lookup(item).toString()));
         }
-
         this.heapTable.refresh();
     }
 
@@ -184,19 +169,14 @@ public class MainController implements Initializable {
 
         this.fileTable.getItems().clear();
         MyIDictionary<String, BufferedReader> file = state.getFileTable();
-
-
         var iterator = file.getIterator();
         while (iterator.hasNext()) {
             String item = iterator.next();
             this.fileTable.getItems().add(
-                    new filetableModle(item,
+                    new FileTableModule(item,
                             file.lookup(item).toString()));
         }
-
         this.fileTable.refresh();
-
-
     }
 
     private void populateOutput(PrgState state) {
@@ -206,17 +186,15 @@ public class MainController implements Initializable {
     }
 
     private void populateSymbolTable(PrgState state) {
-
         this.symTable.getItems().clear();
         MyIDictionary<String, IValue> symbolTable = state.getSymTable();
         var iterator = symbolTable.getIterator();
         while (iterator.hasNext()) {
             String item = iterator.next();
             this.symTable.getItems().add(
-                    new SymtableModle(item.toString(),
+                    new SymTableModule(item.toString(),
                             symbolTable.lookup(item).toString()));
         }
-
         this.heapTable.refresh();
     }
 
@@ -233,13 +211,11 @@ public class MainController implements Initializable {
         if (ps == null) return;
         MyIStack<IStmt> exeStack = ps.getStk();
         List<String> exeStackList = new ArrayList<>();
-
         if (exeStack.isEmpty()) {
             this.exeStack.setItems(FXCollections.observableList(FXCollections.emptyObservableList()));
             this.exeStack.refresh();
             return;
         }
-
         for (IStmt s : exeStack.getContent().stream().toList())
             exeStackList.add(s.toString());
         Collections.reverse(exeStackList);
@@ -258,9 +234,7 @@ public class MainController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             alert.showAndWait();
         }
-
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -278,11 +252,9 @@ public class MainController implements Initializable {
             public void changed(ObservableValue<? extends Integer> observableValue, Integer integer, Integer t1) {
                 if (progStateIdentifiers.getSelectionModel().getSelectedItem() != null) {
 
-
                     for (PrgState item : controller.getRepo().getPrgList())
                         if (item.getIID() == progStateIdentifiers.getSelectionModel().getSelectedItem())
                             progState = item;
-
 
                     populateExeStack(progState);
                     populateSymbolTable(progState);

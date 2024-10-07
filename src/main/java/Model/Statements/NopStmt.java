@@ -19,16 +19,7 @@ public class NopStmt implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
         return typeEnv;
     }
-
 }
-
-
-
-
-
-
-
-

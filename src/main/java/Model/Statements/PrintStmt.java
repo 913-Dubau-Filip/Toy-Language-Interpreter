@@ -14,10 +14,9 @@ import Model.Value.IValue;
 public class PrintStmt implements IStmt {
     Exp exp;
 
-    public PrintStmt(Exp e){this.exp=e;}
-
-
-
+    public PrintStmt(Exp e) {
+        this.exp = e;
+    }
 
     @Override
     public IStmt deepCopy() {
@@ -25,20 +24,22 @@ public class PrintStmt implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
         exp.typecheck(typeEnv);
         return typeEnv;
     }
 
     @Override
     public PrgState execute(PrgState state) throws MyException, InvalidTypeException, DivisionByZeroException {
-        MyIList<IValue> list=state.getOutList();
-        MyIDictionary<String, IValue> symTbl= state.getSymTable();
+        MyIList<IValue> list = state.getOutList();
+        MyIDictionary<String, IValue> symTbl = state.getSymTable();
         MyIHeap<Integer, IValue> heap = state.getHeap();
-        list.append(exp.eval(symTbl,heap));
+        list.append(exp.eval(symTbl, heap));
         return null;
     }
 
     @Override
-    public String toString(){  return ("print(" +exp.toString()+")");}
+    public String toString() {
+        return ("print(" + exp.toString() + ")");
+    }
 }

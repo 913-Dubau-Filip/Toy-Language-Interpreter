@@ -13,10 +13,11 @@ import Model.Value.StringIValue;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class closeRFileStmt implements IStmt{
+public class CloseRFileStmt implements IStmt {
 
     Exp exp;
-    public closeRFileStmt(Exp exp) {
+
+    public CloseRFileStmt(Exp exp) {
         this.exp = exp;
     }
 
@@ -25,37 +26,31 @@ public class closeRFileStmt implements IStmt{
         MyIDictionary<String, IValue> symTable = state.getSymTable();
         MyIDictionary<String, BufferedReader> fileTable = state.getFileTable();
         MyIHeap<Integer, IValue> heap = state.getHeap();
-        IValue val = exp.eval(symTable,heap);
-        if (val.getType().equals(new StringType())){
+        IValue val = exp.eval(symTable, heap);
+        if (val.getType().equals(new StringType())) {
             StringIValue value = (StringIValue) val;
-            if(fileTable.isDefined(value.getValue()))
-            {
-                try{
+            if (fileTable.isDefined(value.getValue())) {
+                try {
                     BufferedReader bufferedReader = fileTable.lookup(value.getValue());
                     bufferedReader.close();
                     fileTable.remove(value.getValue());
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     throw new MyException(e.getMessage());
-
-
                 }
-            }
-            else
+            } else
                 throw new MyException("Name does not exist in FileTable");
-        }
-        else
+        } else
             throw new MyException("Types do not match");
         return null;
     }
 
     @Override
     public IStmt deepCopy() {
-        return new closeRFileStmt(this.exp.deepCopy());
+        return new CloseRFileStmt(this.exp.deepCopy());
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
         exp.typecheck(typeEnv);
         return typeEnv;
     }

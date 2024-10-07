@@ -1,11 +1,11 @@
 package Model;
 
+import Exception.*;
 import Model.ADT.*;
 import Model.Statements.IStmt;
 import Model.Value.IValue;
 
 import java.io.BufferedReader;
-import Exception.*;
 
 public class PrgState {
     MyIStack<IStmt> exeStack;
@@ -14,39 +14,31 @@ public class PrgState {
     MyIHeap<Integer, IValue> Heap;
     MyIList<IValue> out;
     IStmt originalProgram;
-     private int id;
-     public int nrkids=0;
+    private int id;
+    public int nrkids = 0;
 
-
-     public synchronized void incnrkids()
-    {
+    public synchronized void incnrkids() {
         this.nrkids++;
     }
 
-    public synchronized int getnrkids()
-    {
+    public synchronized int getnrkids() {
         return nrkids;
     }
 
-    synchronized void setId(int id)
-     {
-         this.id = id;
-     }
+    synchronized void setId(int id) {
+        this.id = id;
+    }
 
-     public synchronized int getId()
-     {
-         return id;
-     }
+    public synchronized int getId() {
+        return id;
+    }
 
-     public int getIID()
-     {
-         return id;
-     }
+    public int getIID() {
+        return id;
+    }
 
-    public Boolean isNotCompleted()
-    {
-        //returns true when the exeStack is not empty and false otherwise
-        return ! exeStack.isEmpty();
+    public Boolean isNotCompleted() {
+        return !exeStack.isEmpty();
     }
 
     public PrgState oneStep() throws MyException, ProgramStateIsEmptyException, VarAlreadyDeclaredException, ADTException, InvalidTypeException, DivisionByZeroException, VarUndeclaredException {
@@ -56,7 +48,6 @@ public class PrgState {
         IStmt crtStmt = exeStack.pop();
         return crtStmt.execute(this);
     }
-
 
     public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, IValue> symtbl, MyIList<IValue> ot, MyIDictionary<String, BufferedReader> filetabl, MyHeap<Integer, IValue> heap, IStmt prg, int id) {
         setId(id);
@@ -69,11 +60,10 @@ public class PrgState {
         stk.push(prg);
     }
 
-
     @Override
     public String toString() {
 
-        return   "ProgramStateID " + getId() + "\n" +
+        return "ProgramStateID " + getId() + "\n" +
                 "ExeStack:\n" + exeStack.toString() +
                 "\nSymTable:\n" + symTable.toString() +
                 "\nOut:\n" + out.toString() +
@@ -101,6 +91,4 @@ public class PrgState {
     public MyIHeap<Integer, IValue> getHeap() {
         return this.Heap;
     }
-
 }
-

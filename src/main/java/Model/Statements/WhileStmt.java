@@ -35,7 +35,6 @@ public class WhileStmt implements IStmt {
             stk.push(s);
         }
         return null;
-
     }
 
     @Override
@@ -44,12 +43,12 @@ public class WhileStmt implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
         Type expresioType = e.typecheck(typeEnv);
         if (!expresioType.equals(new BoolType())) {
             throw new InvalidTypeException("expresion must be avaluated to boolean");
         }
-        s.typecheck(typeEnv.deepcopy());
+        s.typeCheck(typeEnv.deepcopy());
         return typeEnv;
     }
 

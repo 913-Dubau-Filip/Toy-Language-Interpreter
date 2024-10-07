@@ -8,21 +8,19 @@ import java.util.Objects;
 public class BoolIValue implements IValue {
     private boolean value;
 
-
-    public BoolIValue()
-    {
-        this.value=false;
+    public BoolIValue() {
+        this.value = false;
     }
-    public BoolIValue(boolean value)
-    {
+
+    public BoolIValue(boolean value) {
         this.value = value;
     }
-    public boolean getValue()
-    {
+
+    public boolean getValue() {
         return this.value;
     }
-    public void setValue(boolean nv)
-    {
+
+    public void setValue(boolean nv) {
         this.value = nv;
     }
 
@@ -40,20 +38,17 @@ public class BoolIValue implements IValue {
     }
 
     @Override
-    public Type getType()
-    {
+    public Type getType() {
         return new BoolType();
     }
 
     @Override
-    public IValue deepCopy()
-    {
+    public IValue deepCopy() {
         return new BoolIValue(value);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return Boolean.toString(value);
     }
 }

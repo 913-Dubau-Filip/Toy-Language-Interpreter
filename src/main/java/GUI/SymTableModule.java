@@ -1,15 +1,13 @@
 package GUI;
 
-public class SymtableModle {
+public class SymTableModule {
 
     private String name = null;
     private String value = null;
 
-    public SymtableModle(String a, String b)
-    {
+    public SymTableModule(String a, String b) {
         this.name = a;
-        this.value= b;
-
+        this.value = b;
     }
 
     public String getName() {

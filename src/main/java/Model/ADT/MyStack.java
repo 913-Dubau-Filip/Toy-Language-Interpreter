@@ -9,8 +9,7 @@ public class MyStack<T> implements MyIStack<T> {
 
     private Stack<T> stack;
 
-    public MyStack()
-    {
+    public MyStack() {
         this.stack = new Stack<>();
     }
 
@@ -22,31 +21,32 @@ public class MyStack<T> implements MyIStack<T> {
     }
 
     @Override
-    public void push(T v)
-    {
+    public void push(T v) {
         stack.push(v);
     }
 
     @Override
-    public boolean isEmpty() {return stack.empty();}
+    public boolean isEmpty() {
+        return stack.empty();
+    }
 
     @Override
-    public int size() {return stack.size();}
+    public int size() {
+        return stack.size();
+    }
 
-    public Stack<T> getStack() {return stack;}
+    public Stack<T> getStack() {
+        return stack;
+    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
-
         for (int i = stack.size() - 1; i >= 0; i--) {
             sb.append(stack.get(i));
             if (i != 0)
                 sb.append("\n");
         }
-
-
         return sb.toString();
     }
 

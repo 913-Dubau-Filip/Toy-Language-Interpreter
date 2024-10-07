@@ -4,8 +4,7 @@ import Model.Value.IValue;
 import Model.Value.IntIValue;
 
 public class IntType implements Type {
-    public IValue defaultValue()
-    {
+    public IValue defaultValue() {
         return new IntIValue(0);
     }
 
@@ -14,9 +13,12 @@ public class IntType implements Type {
         return new IntType();
     }
 
-    public boolean equals(Object another){
+    public boolean equals(Object another) {
         return another instanceof IntType;
     }
+
     @Override
-    public String toString() { return "int";}
+    public String toString() {
+        return "int";
+    }
 }

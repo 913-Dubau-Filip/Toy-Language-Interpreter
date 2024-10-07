@@ -9,11 +9,16 @@ import Model.Value.IValue;
 public class ValueExp implements Exp {
     IValue e;
 
-    public ValueExp(IValue v){this.e=v;}
-    public IValue getE(){return this.e;}
+    public ValueExp(IValue v) {
+        this.e = v;
+    }
+
+    public IValue getE() {
+        return this.e;
+    }
 
     @Override
-    public IValue eval(MyIDictionary<String, IValue> tbl, MyIHeap<Integer, IValue> hp)  throws MyException {
+    public IValue eval(MyIDictionary<String, IValue> tbl, MyIHeap<Integer, IValue> hp) throws MyException {
         return e;
     }
 
@@ -24,11 +29,11 @@ public class ValueExp implements Exp {
 
     @Override
     public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
-            return e.getType();
+        return e.getType();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return e.toString();
     }
 }

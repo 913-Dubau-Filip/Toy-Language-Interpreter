@@ -14,7 +14,6 @@ public class AssignStmt implements IStmt {
     String id;
     Exp exp;
 
-    //constructor, getters
     public AssignStmt(String id, Exp ex) {
         this.exp = ex;
         this.id = id;
@@ -39,8 +38,7 @@ public class AssignStmt implements IStmt {
         MyIDictionary<String, IValue> symTbl = state.getSymTable();
         MyIHeap<Integer, IValue> heap = state.getHeap();
         if (symTbl.isDefined(id)) {
-            IValue val = exp.eval(symTbl,heap);
-
+            IValue val = exp.eval(symTbl, heap);
             Type typId = (symTbl.lookup(id)).getType();
             if (val.getType().equals(typId))
                 symTbl.update(id, val);
@@ -56,7 +54,7 @@ public class AssignStmt implements IStmt {
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
         Type typevar = typeEnv.lookup(id);
         Type typexp = exp.typecheck(typeEnv);
         if (typevar.equals(typexp))
@@ -64,5 +62,4 @@ public class AssignStmt implements IStmt {
         else
             throw new MyException("Assignment: right hand side and left hand side have different types ");
     }
-
 }

@@ -7,15 +7,14 @@ import java.util.Objects;
 
 public class StringIValue implements IValue {
 
-    private String value;
+    private final String value;
 
 
-    public StringIValue()
-    {
-        this.value=" ";
+    public StringIValue() {
+        this.value = " ";
     }
-    public StringIValue(String value)
-    {
+
+    public StringIValue(String value) {
         this.value = value;
     }
 
@@ -39,7 +38,7 @@ public class StringIValue implements IValue {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.value;
     }
 

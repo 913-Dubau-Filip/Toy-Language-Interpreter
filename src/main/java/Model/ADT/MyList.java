@@ -43,10 +43,9 @@ public class MyList<T> implements MyIList<T> {
     public String toString() {
         String rez = "";
         int i;
-        for ( i = 0; i < list.size(); i++) {
+        for (i = 0; i < list.size(); i++) {
             rez = rez + list.get(i);
             rez = rez + "\n";
-
         }
         return rez;
     }

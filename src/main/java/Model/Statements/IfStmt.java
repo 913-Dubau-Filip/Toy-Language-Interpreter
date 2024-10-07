@@ -18,34 +18,41 @@ public class IfStmt implements IStmt {
     IStmt thenS;
     IStmt elseS;
 
-    //constructor
     public IfStmt(Exp e, IStmt t, IStmt el) {
-        exp=e;
-        thenS=t;
-        elseS=el;
+        exp = e;
+        thenS = t;
+        elseS = el;
     }
-    //getters
-    public Exp getExp(){return this.exp;}
-    public IStmt getThenS(){return this.thenS;}
-    public IStmt getElseS(){return this.elseS;}
+
+    public Exp getExp() {
+        return this.exp;
+    }
+
+    public IStmt getThenS() {
+        return this.thenS;
+    }
+
+    public IStmt getElseS() {
+        return this.elseS;
+    }
 
     @Override
-    public String toString(){ return "(IF("+ exp.toString()+") THEN(" +thenS.toString()  +")ELSE("+elseS.toString()+"))";}
+    public String toString() {
+        return "(IF(" + exp.toString() + ") THEN(" + thenS.toString() + ")ELSE(" + elseS.toString() + "))";
+    }
+
     @Override
     public PrgState execute(PrgState state) throws MyException, InvalidTypeException, DivisionByZeroException {
-        MyIStack<IStmt> stk=state.getStk();
-        MyIDictionary<String, IValue> symTbl= state.getSymTable();
+        MyIStack<IStmt> stk = state.getStk();
+        MyIDictionary<String, IValue> symTbl = state.getSymTable();
         MyIHeap<Integer, IValue> heap = state.getHeap();
-        IValue cond=exp.eval(symTbl,heap );
-        BoolIValue bCond=(BoolIValue) cond;
-
-        if(!cond.getType().equals(new BoolType())){
+        IValue cond = exp.eval(symTbl, heap);
+        BoolIValue bCond = (BoolIValue) cond;
+        if (!cond.getType().equals(new BoolType())) {
             throw new InvalidTypeException("Conditional expression is not boolean");
-        }
-        else if(bCond.getValue()){
+        } else if (bCond.getValue()) {
             stk.push(thenS);
-        }
-        else{
+        } else {
             stk.push(elseS);
         }
         return null;
@@ -53,20 +60,17 @@ public class IfStmt implements IStmt {
 
     @Override
     public IStmt deepCopy() {
-        return new IfStmt(exp.deepCopy(),thenS.deepCopy(),elseS.deepCopy());
+        return new IfStmt(exp.deepCopy(), thenS.deepCopy(), elseS.deepCopy());
     }
 
     @Override
-    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
-        Type typexp=exp.typecheck(typeEnv);
+    public MyIDictionary<String, Type> typeCheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typexp = exp.typecheck(typeEnv);
         if (typexp.equals(new BoolType())) {
-            thenS.typecheck(typeEnv.deepcopy());
-            elseS.typecheck(typeEnv.deepcopy());
+            thenS.typeCheck(typeEnv.deepcopy());
+            elseS.typeCheck(typeEnv.deepcopy());
             return typeEnv;
-        }
-        else
+        } else
             throw new MyException("The condition of IF has not the type bool");
     }
-
-
 }

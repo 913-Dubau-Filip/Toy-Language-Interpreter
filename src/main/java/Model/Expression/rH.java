@@ -36,10 +36,10 @@ public class rH implements Exp {
     }
 
     @Override
-    public Type typecheck(MyIDictionary<String,Type> typeEnv) throws MyException{
-        Type typ=e.typecheck(typeEnv);
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typ = e.typecheck(typeEnv);
         if (typ instanceof RefType) {
-            RefType reft =(RefType) typ;
+            RefType reft = (RefType) typ;
             return reft.getInner();
         } else
             throw new MyException("the rH argument is not a Ref Type");

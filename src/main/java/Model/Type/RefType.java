@@ -14,7 +14,6 @@ public class RefType implements Type {
         return inner;
     }
 
-
     @Override
     public boolean equals(Object another) {
         if (another instanceof RefType)
@@ -27,7 +26,6 @@ public class RefType implements Type {
     public String toString() {
         return "Ref(" + inner.toString() + ")";
     }
-
 
     public IValue defaultValue() {
         return new RefIValue(0, inner);

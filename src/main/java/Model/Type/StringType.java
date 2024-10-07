@@ -3,7 +3,7 @@ package Model.Type;
 import Model.Value.IValue;
 import Model.Value.StringIValue;
 
-public class StringType implements Type{
+public class StringType implements Type {
     @Override
     public IValue defaultValue() {
         return new StringIValue();

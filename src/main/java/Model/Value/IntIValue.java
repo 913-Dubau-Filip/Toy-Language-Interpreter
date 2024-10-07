@@ -7,22 +7,21 @@ import java.util.Objects;
 
 public class IntIValue implements IValue {
     int val;
-    public IntIValue()
-    {
-        this.val=0;
+
+    public IntIValue() {
+        this.val = 0;
     }
 
-    public IntIValue(int v)
-    {
-        val=v;
+    public IntIValue(int v) {
+        val = v;
     }
-    public int getVal()
-    {
+
+    public int getVal() {
         return val;
     }
-    public void setVal(int nv)
-    {
-        this.val=nv;
+
+    public void setVal(int nv) {
+        this.val = nv;
     }
 
     @Override
@@ -39,12 +38,11 @@ public class IntIValue implements IValue {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return Integer.toString(val);
     }
-    public Type getType()
-    {
+
+    public Type getType() {
         return new IntType();
     }
 
@@ -52,5 +50,4 @@ public class IntIValue implements IValue {
     public IValue deepCopy() {
         return new IntIValue(val);
     }
-
 }

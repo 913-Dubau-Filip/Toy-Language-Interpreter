@@ -1,15 +1,13 @@
 package GUI;
 
-public class filetableModle {
+public class FileTableModule {
 
     private String id = null;
     private String name = null;
 
-    public filetableModle(String a, String b)
-    {
+    public FileTableModule(String a, String b) {
         this.id = a;
         this.name = b;
-
     }
 
     public String getId() {
